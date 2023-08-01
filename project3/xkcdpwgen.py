@@ -1,0 +1,56 @@
+# Grace Wang
+# CY 2550 Project 3
+
+import random
+import argparse
+
+SYMBOLS = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '.', ':', ';']
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate a secure, memorable password using the XKCD method')
+
+    parser.add_argument('-w', '--words', type=int, default=4, help='include WORDS words in the password (default=4)')
+    parser.add_argument('-c', '--caps', type=int, default=0,
+                        help='capitalize the first letter of CAPS random words (default=0)')
+    parser.add_argument('-n', '--numbers', type=int, default=0,
+                        help='insert NUMBERS random numbers in the password (default=0)')
+    parser.add_argument('-s', '--symbols', type=int, default=0, help='insert SYMBOLS random symbols in the password')
+
+    args = parser.parse_args()
+
+    all_words = []
+    cap_words = []
+    password = ''
+
+    while args.words > 0:
+        words = open('words.txt').read().splitlines()
+        all_words.append(random.choice(words))
+        args.words -= 1
+
+    while args.caps > 0:
+        cap_word = random.choice(all_words).capitalize()
+        cap_words.append(cap_word)
+        all_words.remove(cap_word.lower())
+        args.caps -= 1
+
+    pswd_words = all_words + cap_words
+    random.shuffle(pswd_words)
+    password = ''.join(pswd_words)
+
+    while args.symbols > 0:
+        num = random.randint(0, 9)
+        index = random.randint(0, len(password))
+        password = password[0:index] + str(num) + password[index:]
+        args.symbols -= 1
+
+    while args.numbers > 0:
+        symbol = random.choice(SYMBOLS)
+        index = random.randint(0, len(password))
+        password = password[0:index] + symbol + password[index:]
+        args.numbers -= 1
+
+    print(password)
+
+
+if __name__ == "__main__":
+    main()
