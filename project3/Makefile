@@ -3,4 +3,4 @@ all: run
 
 # Run the Python script
 run:
-	python xkcdpwgen.py
+	python3 xkcdpwgen.py
