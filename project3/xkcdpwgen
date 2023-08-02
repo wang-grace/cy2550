@@ -1,5 +1,6 @@
 # Grace Wang
 # CY 2550 Project 3
+#!/usr/bin/env python3
 
 import random
 import argparse
