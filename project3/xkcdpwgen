@@ -36,17 +36,17 @@ def main():
     random.shuffle(pswd_words)
     password = ''.join(pswd_words)
 
-    while args.symbols > 0:
+    while args.numbers > 0:
         num = random.randint(0, 9)
         index = random.randint(0, len(password))
         password = password[0:index] + str(num) + password[index:]
-        args.symbols -= 1
+        args.numbers -= 1
 
-    while args.numbers > 0:
+    while args.symbols > 0:
         symbol = random.choice(SYMBOLS)
         index = random.randint(0, len(password))
         password = password[0:index] + symbol + password[index:]
-        args.numbers -= 1
+        args.symbols -= 1
 
     print(password)
 
